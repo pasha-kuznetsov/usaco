@@ -76,3 +76,32 @@ of the fields on one side of the road (either side can be shifted).
 ```
 
 > **Problem credits:** Brian Dean
+
+## Implementation
+
+* Renumber the 2nd sequence in terms of positions of the 1st one.
+* Count inversions using modified merge sort.
+* Apply shifts by accounting for the following property of the renumbered 
+sequence. When an item is moved item the start of the sequence to the back:
+    * It adds this many inversions: `N - pos - 1`
+    * It subtracts this many inversions: `pos` 
+    * For example:
+        ```
+        2 3 4 5 1 0
+        ```
+        Moving 2 to the back of the sequence:
+        ```
+        3 4 5 1 0 2 
+        ```
+        * `2` is now coming after `3`, `4` and `5` (`+ N - pos - 1` inversions)
+        * `2` is no longer preceding `1` and `0` (`- pos` inversions)
+* Repeat the above for the 1st sequence remapped by 2nd positions
+  and select the best result between the two.
+
+> **See also:** Editorial solution description at [USACO](http://usaco.org/current/data/sol_mincross_platinum_feb17.html).
+
+## Tests
+
+> **See:** [test/groovy/usaco_2017_feb_1](../../../test/groovy/usaco_2017_feb_1)
+
+![Result](../../resources/usaco_2017_feb_1/result.png)
