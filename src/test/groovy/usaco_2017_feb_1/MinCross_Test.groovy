@@ -3,6 +3,7 @@ package usaco_2017_feb_1
 import spock.lang.Specification
 import spock.lang.Unroll
 import testutils.ResourceDir
+import testutils.TestOutput
 
 class MinCross_Test extends Specification {
     @Unroll
@@ -10,7 +11,7 @@ class MinCross_Test extends Specification {
         def fields = input.split()
         int n = fields.size() / 2
         def inputStream = new StringReader((n + '\n' + fields.join('\n')))
-        def output = new Output()
+        def output = new TestOutput()
 
         when:
         MinCross.main(inputStream, output.print)
@@ -45,7 +46,7 @@ class MinCross_Test extends Specification {
     def "test data #dataFiles"() {
         def expectedOutput = new Scanner(dataFiles.output).nextLong()
         def input = new FileReader(dataFiles.input)
-        def output = new Output()
+        def output = new TestOutput()
 
         when:
         MinCross.main(input, output.print)
@@ -56,10 +57,5 @@ class MinCross_Test extends Specification {
         where:
         dataFiles << new ResourceDir(this.class.name)
     }
-
-    static class Output {
-        OutputStream stream = new ByteArrayOutputStream()
-        PrintStream print = new PrintStream(stream, true)
-        String getString() { return stream.toString() }
-    }
 }
+
